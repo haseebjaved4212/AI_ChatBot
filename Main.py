@@ -3,6 +3,9 @@ import random
 import string
 import warnings
 
+os.environ.setdefault("NLTK_DISABLE_IMPORT_SECURITY", "1")
+os.environ.setdefault("PYTHONSAFEPATH", "1")
+
 warnings.filterwarnings("ignore")
 
 import nltk
