@@ -1,120 +1,104 @@
 # AI ChatBot
 
-A lightweight NLP-powered chatbot built in Python using `nltk`, `scikit-learn`, and a simple knowledge base about Python, NLP, and chatbots.
+A simple Python-based NLP chatbot that answers questions from a built-in knowledge base using TF-IDF and cosine similarity.
 
-The project demonstrates a basic retrieval-style conversational system using:
+This project is designed to demonstrate the fundamentals of a retrieval-style chatbot, including:
 
-- TF-IDF vectorization
-- cosine similarity
+- text normalization
+- tokenization
 - lemmatization
-- keyword-based greeting and farewell handling
+- similarity scoring
+- response selection from a knowledge base
+
+## Demo
+
+A verified sample conversation for the project is shown below:
+
+![AI Chatbot Sample Conversation](conversation_sample.png)
 
 ## Project Overview
 
-This chatbot answers user questions by comparing the user's input against a built-in knowledge base. It uses a TF-IDF vectorizer to transform sentences into numerical vectors and then measures similarity using cosine similarity.
+The chatbot stores short domain-specific sentences in `KNOWLEDGE_BASE` and compares user input with them using a TF-IDF vectorizer.
 
-If the new sentence is very similar to an existing sentence, the chatbot returns the most relevant known answer. If the similarity score is too low, it responds with a fallback message.
+When a user asks a question, the program:
+
+1. cleans and normalizes the text
+2. tokenizes the input
+3. lemmatizes the words
+4. converts the text into vector form
+5. computes similarity with the knowledge base
+6. returns the most relevant sentence as the answer
+
+If the similarity score is too low, the bot returns a fallback message stating that it does not understand the question yet.
 
 ## Features
 
-- Greeting response support
+- Greeting recognition
 - Farewell detection
-- Simple “thank you” reply handling
-- `clear` command to clear the terminal screen
-- Knowledge-base question answering using NLP similarity
-- Automatic NLTK resource download for missing models/data
+- Simple gratitude response
+- Clear-screen command support
+- NLP similarity-based answer generation
+- Automatic NLTK resource download when needed
 
-## Demo Conversation
+## Tech Stack
 
-The following verified sample interaction is included as a visual reference:
-
-![AI Chatbot Sample Conversation](conversation_sample.png)
+- Python 3
+- `nltk`
+- `scikit-learn`
+- `Pillow`
 
 ## Project Structure
 
 ```text
 AI_ChatBot/
-├── Main.py          # Main chatbot implementation
-├── conversation_sample.png  # Demo conversation image for README
-└── README.md        # Project documentation
+├── Main.py                   # Main chatbot logic
+├── README.md                 # Project documentation
+├── conversation_sample.png    # Verified sample conversation preview
+└── .venv/                     # Virtual environment (if created locally)
 ```
 
 ## Requirements
 
-Make sure the following Python packages are installed:
-
-- Python 3.x
-- `nltk`
-- `scikit-learn`
-- `Pillow` (used for generating the sample image in this documentation workflow)
-
-You can install them with:
+Install the core dependencies before running the project:
 
 ```bash
 pip install nltk scikit-learn pillow
 ```
 
-## How It Works
+If you are using a virtual environment, install them inside that environment:
 
-### 1. Knowledge Base Setup
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+& ".venv\Scripts\Activate.ps1"
+python -m pip install nltk scikit-learn pillow
+```
 
-The chatbot uses a built-in string called `KNOWLEDGE_BASE` which contains short educational sentences related to:
+## Windows PowerShell Setup
 
-- Python
-- NLP
-- Machine Learning
-- Deep Learning
-- Chatbots
-- TF-IDF
-- Cosine Similarity
+The project has been verified in Windows PowerShell with a virtual environment.
 
-### 2. Text Preprocessing
+### 1. Activate the environment
 
-The system normalizes user input by:
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+& "c:\Users\DELL\OneDrive\Desktop\Ai Chat bot\.venv\Scripts\Activate.ps1"
+```
 
-- converting text to lowercase
-- removing punctuation
-- tokenizing text
-- lemmatizing words using WordNetLemmatizer
+### 2. Run the script
 
-### 3. Similarity Matching
-
-The bot transforms the user input and the knowledge sentences into vectors using TF-IDF. It then computes cosine similarity and selects the sentence with the highest score.
-
-### 4. Response Generation
-
-The chatbot returns:
-
-- a greeting response if the sentence contains a greeting
-- a goodbye message when the user says farewell
-- a knowledge-based answer when the similarity match is good
-- a fallback response when the input is not understood
-
-## Run the Project
-
-From the project folder, run:
-
-```bash
+```powershell
 python Main.py
 ```
 
-You will be prompted with:
+If you prefer the full path, this also works:
 
-```text
-You:
+```powershell
+& "c:\Users\DELL\OneDrive\Desktop\Ai Chat bot\.venv\Scripts\python.exe" "c:/Users/DELL/OneDrive/Desktop/Ai Chat bot/Main.py"
 ```
 
-Example inputs:
+## Verified Sample Conversation
 
-```text
-hello
-what is Python
-bye
-```
-
-## Sample Behavior
-
-A sample verified conversation is:
+This is the confirmed sample interaction observed from the project logic:
 
 ```text
 User: hello
@@ -125,16 +109,70 @@ User: bye
 Bot: Goodbye, take care
 ```
 
+## How It Works
+
+### 1. Knowledge Base
+
+The chatbot uses a built-in knowledge base about:
+
+- Python
+- NLP
+- machine learning
+- deep learning
+- chatbot design
+- TF-IDF
+- cosine similarity
+
+### 2. Preprocessing
+
+The input is normalized by:
+
+- converting text to lowercase
+- removing punctuation
+- tokenizing the sentence
+- applying lemmatization
+
+### 3. Matching
+
+The chatbot uses `TfidfVectorizer` and `cosine_similarity` to compare the input against all knowledge-base sentences and determine the closest match.
+
+### 4. Output Behavior
+
+The bot responds with:
+
+- a greeting if the user says hello or similar
+- a farewell message when the user exits
+- a relevant knowledge answer when there is a strong match
+- a fallback answer if the similarity is too weak
+
+## Troubleshooting
+
+### `ModuleNotFoundError: No module named 'nltk'`
+
+This means the environment you are using does not have the required packages installed.
+
+Use the virtual environment and install dependencies in it:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+& "c:\Users\DELL\OneDrive\Desktop\Ai Chat bot\.venv\Scripts\Activate.ps1"
+python -m pip install nltk scikit-learn pillow
+```
+
+### Import security warning on newer Python versions
+
+On newer Python versions, `nltk` may apply a safer import policy that blocks modules from the current working directory. This project has been adjusted so the script sets the required environment behavior before importing `nltk`.
+
 ## Notes
 
-- The first run may download NLTK data files automatically if required.
-- This project is a simple educational implementation and is not a production-grade conversational AI system.
-- It is best suited for learning NLP basics, text similarity, and chatbot design.
+- The project is an educational chatbot example and is not a production-grade conversational AI system.
+- The first run may download some NLTK resources like `punkt`, `wordnet`, or `omw-1.4` automatically.
+- It is best suited for learning NLP, vector similarity, and basic chatbot design.
 
 ## License
 
-This project is provided for educational purposes.
+This project is provided for educational and learning purposes.
 
 ## Author
 
-Created as a simple Python NLP chatbot project.
+Created as a simple NLP chatbot demonstration in Python.
